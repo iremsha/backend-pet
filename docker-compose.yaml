@@ -1,0 +1,30 @@
+version: "3"
+services:
+  db:
+    image: postgres
+    container_name: db
+    restart: on-failure
+    network_mode: host
+    environment:
+      POSTGRES_DB: backend_pet
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+    volumes:
+      - ./volumes/pgdata:/var/lib/postgresql/data/pgdata
+    ports:
+      - "5432:5432"
+
+  app:
+    image: backend-pet-service
+    build: ..
+    container_name: web
+    restart: on-failure
+    network_mode: host
+    depends_on:
+      - db
+    env_file:
+      - .env
+    ports:
+      - "8080:8080"
+

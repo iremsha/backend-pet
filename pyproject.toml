@@ -1,0 +1,178 @@
+[tool.poetry]
+name = "backend-pet"
+version = "1.0.0"
+description = "Something useful"
+authors = ["ilremsha <remsha@gmail.com>"]
+packages = [
+    { include = "web", from = "backend_pet" },
+    { include = "cli.py", from = "backend_pet" },
+]
+include = [
+    "alembic.ini",
+]
+
+
+[tool.poetry.dependencies]
+# main
+python = "^3.12"
+
+fastapi = "^0.109.0"
+httpx = "^0.27.0"
+uvicorn = "^0.27.0"
+SQLAlchemy = { version = "^2.0.25", extras = ["asyncio", "mypy"] }
+alembic = {version = "^1.13.1", extras = ["tz"]}
+psycopg2-binary = "^2.9.9"
+pydantic = "^2.6.1"
+pydantic-settings = "^2.2.1"
+asyncpg = "^0.29.0"
+typer = "^0.9.0"
+pytz = "^2024.1"
+structlog = "^24.1.0"
+tenacity = "^8.2.3"
+
+# support
+sentry-sdk = "^1.40.2"
+
+
+[tool.poetry.dev-dependencies]
+# liter
+ruff = "^0.2.2"
+
+# typing
+mypy = "^1.8.0"
+
+# formater
+black = "^24.1.1"
+isort = "^5.13.2"
+
+# testing
+pytest = "^8.0.0"
+pytest-cov = "^4.1.0"
+pytest-asyncio = "^0.21.1"
+pytest-httpx = "^0.30.0"
+async-factory-boy = "^1.0.1"
+pytest-factoryboy = "^2.7.0"
+freezegun = "^1.4.0"
+coverage = {version = "^6.5.0", extras = ["toml"]}
+
+[tool.poetry.scripts]
+backend-pet = "backend_pet.cli:cli"
+
+
+[tool.ruff]
+line-length = 119
+target-version = "py312"
+respect-gitignore = true
+
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = [
+    "ANN101", "ANN102",
+    "D",
+    "EM101",
+    "FA",
+    "FIX002",
+    "B008",
+    "G004",
+    "RUF001", "RUF100", "RUF003", "RUF012",
+    "S602", "S608",
+    "PT022", "PT023",
+    "S104", "S311", "S101",
+    "TD002", "TD003",
+    "TRY003", "EM102", "B904",
+    "COM812", "ISC001",
+]
+
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401", "I"]
+"env.py" = ["ALL"]
+"tests/*" = ["ALL"]
+"model.py" = ["ARG005"]
+"logging.py" = ["ANN001", "PLR2004"]
+"conftest.py" = ["ANN001", "PGH004"]
+"contextvar_manager.py" = ["ANN001"]
+"exception_handlers.py" = ["ARG002", "ANN002", "ANN003"]
+"database.py" = ["ARG005", "ANN201", "ANN202", "ANN002", "ANN003"]
+"migrations/*" = ["ARG005", "ANN001", "ANN201", "ANN002", "ANN202", "ANN003", "W291", "N999"]
+
+
+[tool.ruff.lint.flake8-annotations]
+mypy-init-return = true
+
+
+[tool.ruff.lint.flake8-quotes]
+inline-quotes = "double"
+multiline-quotes = "double"
+
+
+[tool.ruff.lint.mccabe]
+max-complexity = 10
+
+
+[tool.mypy]
+ignore_missing_imports = true
+plugins = "pydantic.mypy, sqlalchemy.ext.mypy.plugin"
+
+
+[tool.black]
+line-length = 119
+target-version = ['py312']
+skip-string-normalization = true
+can-omit-invisible-parens = false
+
+
+
+[tool.isort]
+profile = "black"
+line_length = 119
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+ensure_newline_before_comments = true
+indent = 4
+lines_after_imports = 2
+lines_between_types = 0
+use_parentheses = true
+
+
+[tool.pytest.ini_options]
+addopts = "--cov"
+
+
+[tool.coverage.run]
+omit = [
+    "{{cookiecutter.project_slug}}/config/*",
+    "*/*_pb2.py",
+    "*/*_pb2_grpc.py",
+]
+source = ["backend_pet"]
+concurrency = [
+    "greenlet",
+    "thread",
+]
+branch = true
+
+
+
+[tool.coverage.report]
+fail_under = 90
+show_missing = true
+exclude_lines = [
+    "pragma: no cover",
+    "def __str__",
+    "def __repr__",
+    "if TYPE_CHECKING",
+    "if typing.TYPE_CHECKING",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "@abstractmethod",
+    "if __name__ == .__main__.:",
+    "__all__",
+]
+
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
