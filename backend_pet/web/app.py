@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from starlette_exporter import PrometheusMiddleware
 from fastapi.exceptions import RequestValidationError
 
 from backend_pet.config import config
@@ -39,6 +40,7 @@ def create_app() -> FastAPI:
 
 def add_middlewares(app: FastAPI) -> None:
     app.add_middleware(
+        PrometheusMiddleware,
         app_name="backend_pet",
         skip_paths=["/healthz", "/metrics"],
         group_paths=True,

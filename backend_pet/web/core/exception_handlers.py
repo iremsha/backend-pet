@@ -102,7 +102,7 @@ async def unique_field_exception_handler(request: Request, exc: UniqueFieldError
 
 async def validation_exception_handler(request: Request, exc: RequestValidationError) -> Coroutine:
     logger.info("RequestValidationError url=%s, error=%s", str(request.url), str(exc))
-    return await request_validation_exception_handler(request, exc)
+    return request_validation_exception_handler(request, exc)
 
 
 async def http_exception_handler(request: Request, exc: HTTPError) -> JSONResponse:

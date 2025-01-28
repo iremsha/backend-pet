@@ -1,4 +1,3 @@
-version: "3"
 services:
   db:
     image: postgres
@@ -17,7 +16,7 @@ services:
 
   app:
     image: backend-pet-service
-    build: ..
+    build: .
     container_name: web
     restart: on-failure
     network_mode: host

@@ -7,6 +7,7 @@ from models.common import HasTimestamp
 
 class Pet(Base, HasTimestamp):
     __tablename__ = "pets"
+    __table_args__ = {"extend_existing": True}
 
     id: so.Mapped[int] = so.mapped_column(sa.Integer, primary_key=True)
     name: so.Mapped[str]

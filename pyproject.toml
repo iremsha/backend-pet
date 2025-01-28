@@ -32,9 +32,10 @@ tenacity = "^8.2.3"
 
 # support
 sentry-sdk = "^1.40.2"
+starlette-exporter = "^0.23.0"
 
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
 # liter
 ruff = "^0.2.2"
 

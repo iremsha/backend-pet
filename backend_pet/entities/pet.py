@@ -3,5 +3,5 @@ from pydantic import BaseModel
 
 class Pet(BaseModel):
     name: str
-    age: str
+    age: int
     type: str

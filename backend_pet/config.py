@@ -12,7 +12,7 @@ class Config(BaseSettings):
     environment: str | None = "DEV"
 
     # db
-    postgres_dsn: PostgresDsn
+    postgres_dsn: PostgresDsn = None
     postgres_echo: bool = False
 
     # sentry
