@@ -23,7 +23,7 @@ class Config(BaseSettings):
     e1_token: str = "backend_pet_test"
 
     # pydantic
-    model_config = SettingsConfigDict(frozen=True, env_file=".env")
+    model_config = SettingsConfigDict(frozen=True, extra="allow", env_file=".env")
 
     @cached_property
     def log_level(self) -> str:

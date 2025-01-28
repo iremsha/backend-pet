@@ -1,7 +1,11 @@
+import json
 from pathlib import Path
 
 import typer
 import uvicorn
+from fastapi.openapi.utils import get_openapi
+
+from web.app import create_app
 
 cli = typer.Typer()
 
@@ -25,3 +29,10 @@ def run(*, port: int = typer.Option(8080), debug: bool = typer.Option(default=Fa
         reload_dirs=reload_dirs,
         log_level=log_level,
     )
+
+
+@cli.command()
+def spec() -> None:
+    app = create_app()
+    with Path.open("api/openapi.json", "w") as f:
+        json.dump(app.openapi(), f)

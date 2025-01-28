@@ -14,4 +14,4 @@ RUN poetry install --without dev
 RUN chmod u+x entrypoint.sh
 
 ENTRYPOINT ["./entrypoint.sh"]
-CMD ["backend-pet"]
+CMD ["backend-pet", "run"]

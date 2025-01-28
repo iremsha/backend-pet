@@ -8,6 +8,9 @@ lint:
 fmt:
 	poetry run ruff format .
 
+spec:
+	poetry run backend-pet spec
+
 test:
 	poetry run flake8 src/${PACKAGE_NAME}
 	poetry run mypy src/${PACKAGE_NAME}
